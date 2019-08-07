@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
 
-def home(request):
-    return HttpResponse("Home View.")
+def blog_page(request):
+    context = {
+        'title': 'Blog'
+    }
+    return render(request, 'blog/blog.html', context=context)

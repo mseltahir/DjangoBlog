@@ -1,0 +1,40 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block content %}
+<center>
+    <div class="jumbotron">
+        <img src="{% static 'blog/me.png' %}" alt="Mohammed Eltahir" height="200" width="200">
+        <h1 class="display-4">Mohammed S. Eltahir</h1>
+        <p class="lead">Electrical & Electronics Engineering student at the University of Khartoum, interested in
+            Web-development, Machine Learning & Data Science.</p>
+        <hr class="my-4">
+        <h3>Find Me</h3>
+        <div>
+            <a href="https://www.facebook.com/eltahirms" title="Facebook">
+                <span class="fa-stack fa-2x">
+                    <i class="fas fa-square fa-stack-2x" style="color:black"></i>
+                    <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+                </span>
+            </a>
+            <a href="https://twitter.com/eltahirms" title="Twitter">
+                <span class="fa-stack fa-2x">
+                    <i class="fas fa-square fa-stack-2x" style="color:black"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+            </a>
+            <a href="https://www.linkedin.com/in/mseltahir" title="LinkedIn">
+                <span class="fa-stack fa-2x">
+                    <i class="fas fa-square fa-stack-2x" style="color:black"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                </span>
+            </a>
+            <a href="https://www.github.com/mseltahir" title="GitHub">
+                <span class="fa-stack fa-2x">
+                    <i class="fas fa-square fa-stack-2x" style="color:black"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+            </a>
+        </div>
+    </div>
+</center>
+{% endblock %}
