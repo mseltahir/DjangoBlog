@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from blog.models import Post, Comment
 from blog.forms import CommentForm, PostForm
@@ -60,3 +60,12 @@ def blog_category(request, category):
         'posts': Post.objects.filter(categories__name__contains=category).order_by('-created_on')
     }
     return render(request, 'blog/category.html', context=context)
+
+
+def delete_post(request, pk):
+    Post.objects.get(pk=pk).delete()
+    context = {
+        'title': 'Blog',
+        'posts': Post.objects.all().order_by('-created_on')
+    }
+    return HttpResponseRedirect('http://localhost:8000/blog')

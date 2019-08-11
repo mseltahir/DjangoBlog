@@ -1,12 +1,18 @@
 from django import forms
+from .models import Post
 
 
 class PostForm(forms.Form):
-    title = forms.CharField(max_length=200)
-    content = forms.CharField(max_length=3000)
-    author = forms.CharField(max_length=60)
+    author = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': 'Your Name'}))
+    title = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': 'Post Title'}))
+    content = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': 'Content'}))
 
 
 class CommentForm(forms.Form):
-    author = forms.CharField(max_length=60)
-    comment = forms.CharField(max_length=1200)
+    author = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': 'Your Name'}))
+    comment = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': 'Comment', 'label': ''}))
