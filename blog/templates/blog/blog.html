@@ -2,6 +2,7 @@
 {% block content %}
 <div class="col-md-8 offset-md-2">
     <h1>Blog Page</h1>
+    <a href="{% url 'blog:blog_new_post' %}">Create a New Post</a>
     <hr>
     {% for post in posts %}
     <h2><a href="{% url 'blog:blog_detail' post.pk %}">{{ post.title }}</a></h2>
