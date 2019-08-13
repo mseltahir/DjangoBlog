@@ -8,11 +8,6 @@ class Post(models.Model):
     author = models.CharField(max_length=60)
 
 
-class Category(models.Model):
-    name = models.CharField(max_length=60)
-    post = models.ManyToManyField(Post, related_name='categories')
-
-
 class Comment(models.Model):
     author = models.CharField(max_length=60)
     comment = models.TextField()

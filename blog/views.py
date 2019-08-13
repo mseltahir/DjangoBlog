@@ -53,15 +53,6 @@ def blog_detail(request, pk):
     return render(request, 'blog/detail.html', context=context)
 
 
-def blog_category(request, category):
-    context = {
-        'title': 'Blog Categories',
-        'category': category,
-        'posts': Post.objects.filter(categories__name__contains=category).order_by('-created_on')
-    }
-    return render(request, 'blog/category.html', context=context)
-
-
 def delete_post(request, pk):
     Post.objects.get(pk=pk).delete()
     context = {

@@ -1,34 +1,14 @@
 {% extends 'home/base.html' %}
-{% block nav %}
-<div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'home:home_page' %}">Home</a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="{% url 'blog:blog_page' %}">Blog <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Contact me</a>
-        </li>
-    </ul>
-</div>
-{% endblock %}
 {% block content %}
-<div class="col-md-8 offset-md-2">
+<div class="col-md-8 offset-md-2 blog-article">
     <h1>Blog Page</h1>
     <a href="{% url 'blog:blog_new_post' %}">Create a New Post</a>
     <hr>
     {% for post in posts %}
     <h2><a href="{% url 'blog:blog_detail' post.pk %}">{{ post.title }}</a></h2>
     <small>
-        {{ post.created_on.date }} |&nbsp;
-        Categories:&nbsp;
-        {% for category in post.categories.all %}
-        <a href="{% url 'blog:blog_category' category.name %}">
-            {{ category.name }}
-        </a>&nbsp;
-        {% endfor %}
+        <a href="#">{{ post.author }}</a> |&nbsp;
+        {{ post.created_on }}
     </small>
     <p>{{ post.content | slice:":400" }}...</p>
     {% endfor %}
