@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from blog.models import Post, Comment
 from blog.forms import CommentForm, PostForm
 
@@ -12,6 +13,7 @@ def blog_page(request):
     return render(request, 'blog/blog.html', context=context)
 
 
+@login_required
 def blog_new_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
