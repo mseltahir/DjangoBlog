@@ -1,16 +1,48 @@
 {% extends 'blog/base.html' %}
 {% block content %}
 <div class="col-md-10 offset-md-2 blog-article">
-    <h1>Blog Page</h1>
-    <a href="{% url 'blog:blog_new_post' %}">Create a New Post</a>
+    <h1>Posts</h1>
+    {% if user.is_authenticated %}
+    {% endif %}
     <hr>
     {% for post in posts %}
     <h2><a href="{% url 'blog:blog_detail' post.pk %}">{{ post.title }}</a></h2>
     <small>
-        <a href="#">{{ post.author }}</a> |&nbsp;
+        <a href="#">@{{ post.author }}</a> |&nbsp;
         {{ post.created_on }}
     </small>
     <p>{{ post.content | slice:":400" }}...</p>
+    {% empty %}
+    <p>There are no posts yet :(</p>
     {% endfor %}
 </div>
+{% endblock %}
+{% block sb-newpost %}
+<center><a href="{% url 'blog:blog_new_post' %}"><button class="btn btn-primary">New Post</button></a>
+</center>
+{% endblock %}
+
+{% block sb-login %}
+<form method="POST" action="{% url 'users:login' %}">
+    {% csrf_token %}
+    <legend>Log In</legend>
+    <fieldset class="field-group">
+        <div id="div_id_username" class="form-group"> <label for="id_username" class="col-form-label  requiredField">
+                Username<span class="asteriskField">*</span> </label>
+            <div class=""> <input type="text" name="username" autofocus="" class="textinput textInput form-control"
+                    required="" id="id_username" autocomplete="off"
+                    style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+            </div>
+        </div>
+        <div id="div_id_password" class="form-group"> <label for="id_password" class="col-form-label  requiredField">
+                Password<span class="asteriskField">*</span> </label>
+            <div class=""> <input type="password" name="password" class="textinput textInput form-control" required=""
+                    id="id_password" autocomplete="off"
+                    style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+            </div>
+        </div>
+    </fieldset>
+    <button type="submit" class="btn btn-primary mb-2">Login</button>
+</form>
+<small>Need an account? <a href="{% url 'users:register' %}" class="mt-3">Sign Up</a></small>
 {% endblock %}
