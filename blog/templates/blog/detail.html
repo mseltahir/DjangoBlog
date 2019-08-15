@@ -1,18 +1,27 @@
 {% extends "blog/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="blog-article detail-lh">
+<div class="col-md-10 offset-md-2 blog-article detail-lh">
     <h1>{{ post.title }}</h1>
-    <small>
-        <a href="#">{{ post.author }}</a> |&nbsp;
-        {{ post.created_on.date }}
-    </small>
+    <div style="column-count: 2">
+        <small>
+            <a href="#">{{ post.author }}</a> |&nbsp;
+            {{ post.created_on.date }} &nbsp;
+            {% if post.author == user %}
+            <a href="{% url 'blog:post-update' post.pk %}">
+                <button class="btn btn-outline-secondary">
+                    Update
+                </button>
+            </a>
+            <a href="{% url 'blog:delete_post' post.pk %}">
+                <button class="btn btn-danger">
+                    Delete
+                </button>
+            </a>
+            {% endif %}
+        </small>
+    </div>
     <p class="container">{{ post.content |linebreaks }}</p>
-    <a href="{% url 'blog:delete_post' post.pk %}">
-        <button class="btn btn-danger">
-            Delete
-        </button>
-    </a>
     <hr>
 </div>
 {% endblock %}
