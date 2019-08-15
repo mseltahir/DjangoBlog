@@ -1,16 +1,16 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
-    author = models.CharField(max_length=60)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.title
 
-class Comment(models.Model):
-    author = models.CharField(max_length=60)
-    comment = models.TextField()
-    created_on = models.DateTimeField(auto_now_add=True)
-    post = models.ForeignKey(
-        'blog.Post', on_delete=models.CASCADE, related_name='comments', null=True)
+    def get_absolute_url(self):
+        return reverse('blog:blog_detail', kwargs={'pk': self.pk})

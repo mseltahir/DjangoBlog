@@ -1,58 +1,29 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
-from django.contrib.auth.decorators import login_required
-from blog.models import Post, Comment
-from blog.forms import CommentForm, PostForm
+from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from blog.models import Post
 
 
-def blog_page(request):
-    context = {
-        'title': 'Blog',
-        'posts': Post.objects.all().order_by('-created_on')
-    }
-    return render(request, 'blog/blog.html', context=context)
+class PostListView(ListView):
+    model = Post
+    template_name = 'blog/blog.html'
+    context_object_name = 'posts'
 
 
-@login_required
-def blog_new_post(request):
-    if request.method == 'POST':
-        form = PostForm(request.POST)
-        if form.is_valid():
-            post = Post(
-                title=form.cleaned_data['title'],
-                author=form.cleaned_data['author'],
-                content=form.cleaned_data['content']
-            )
-            post.save()
-            return redirect(f'/blog/{post.pk}')
-    else:
-        form = PostForm()
-
-    context = {
-        'title': 'New',
-        'form': form
-    }
-    return render(request, 'blog/new_post.html', context=context)
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'blog/detail.html'
+    context_object_name = 'post'
 
 
-def blog_detail(request, pk):
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'content']
 
-    if request.method == "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            Comment(author=form.cleaned_data['author'],
-                    comment=form.cleaned_data['comment'],
-                    post=Post.objects.get(pk=pk)).save()
-            return HttpResponseRedirect(f'{pk}')
-    else:
-        form = CommentForm()
-
-    context = {
-        'title': 'Blog',
-        'post': Post.objects.get(pk=pk),
-        'form': form
-    }
-    return render(request, 'blog/detail.html', context=context)
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 
 def delete_post(request, pk):

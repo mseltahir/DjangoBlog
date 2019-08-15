@@ -9,10 +9,3 @@ class PostForm(forms.Form):
         attrs={'placeholder': 'Post Title'}))
     content = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': 'Content'}))
-
-
-class CommentForm(forms.Form):
-    author = forms.CharField(widget=forms.TextInput(
-        attrs={'placeholder': 'Your Name'}))
-    comment = forms.CharField(widget=forms.TextInput(
-        attrs={'placeholder': 'Comment', 'label': ''}))
