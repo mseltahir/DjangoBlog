@@ -14,4 +14,7 @@
   .mob-sc-a {
     position: relative;
   }
+  .mob-sc-b {
+    display: block;
+  }
 }

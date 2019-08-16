@@ -6,9 +6,10 @@
     <h1>{{ post.title }}</h1>
     <div style="column-count: 2">
         <small>
-            <a href="#">@{{ post.author }}</a> |&nbsp;
-            {{ post.created_on.date }} &nbsp;
             {% if post.author == user %}
+            <a href="#">@{{ post.author }}</a>
+            <span class="mob-sc-b mob-sc-a">
+                {{ post.created_on.date }} &nbsp;</span>
             <div class="mob-sc-a">
                 <a href="{% url 'blog:post-update' post.pk %}">
                     <button class="btn btn-secondary btn-sm mt-1 mb-1">
@@ -21,6 +22,9 @@
                     </button>
                 </a>
             </div>
+            {% else %}
+            <a href="#">@{{ post.author }}</a> |&nbsp;
+            {{ post.created_on.date }} &nbsp;
             {% endif %}
         </small>
     </div>
