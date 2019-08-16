@@ -1,6 +1,12 @@
-from django.views.generic import (
-    ListView, DetailView, CreateView, UpdateView, DeleteView)
+from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView
+)
 from blog.models import Post
 
 
@@ -54,3 +60,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if post.author == self.request.user:
             return True
         return False
+
+
+def about(request):
+    return render(request, 'blog/about.html')
