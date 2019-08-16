@@ -79,7 +79,9 @@
           </table>
           {% block sb-newpost%}{% endblock %}
           {% else %}
-          {% block sb-login %}{% endblock %}
+          <div class="mob-sc">
+            {% block sb-login %}{% endblock %}
+          </div>
           {% endif %}
         </div>
 
